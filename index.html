@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>クイズアプリ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        #answer {
+            display: none;
+            margin-top: 20px;
+            font-size: 18px;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>クイズアプリ</h1>
+    <p id="question">Q: 日本の首都はどこですか？</p>
+    <button id="toggleButton" onclick="handleClick()">正解を見る</button>
+
+    <p id="answer">A: 東京</p>
+
+    <script>
+        // クイズデータ（質問と答えのペア）
+        const quizData = [
+            { question: "日本の首都はどこですか？", answer: "東京" },
+            { question: "アメリカの首都はどこですか？", answer: "ワシントンD.C." },
+            { question: "フランスの首都はどこですか？", answer: "パリ" },
+            { question: "イタリアの首都はどこですか？", answer: "ローマ" },
+            { question: "カナダの首都はどこですか？", answer: "オタワ" }
+        ];
+
+        let currentQuestionIndex = 0;
+        let showingAnswer = false;
+
+        // 初期化（最初の問題を表示）
+        function initializeQuiz() {
+            currentQuestionIndex = Math.floor(Math.random() * quizData.length);
+            document.getElementById("question").textContent = "Q: " + quizData[currentQuestionIndex].question;
+            document.getElementById("answer").style.display = "none";  // 正解を非表示にする
+            document.getElementById("toggleButton").textContent = "正解を見る";  // ボタンのテキストを初期化
+            showingAnswer = false;  // 正解表示中かどうかのフラグをリセット
+        }
+
+        // ボタンのクリックに応じて動作を切り替える
+        function handleClick() {
+            if (showingAnswer) {
+                initializeQuiz();  // 次の問題に移る
+            } else {
+                showAnswer();  // 正解を表示
+            }
+        }
+
+        // 正解を表示
+        function showAnswer() {
+            document.getElementById("answer").textContent = "A: " + quizData[currentQuestionIndex].answer;
+            document.getElementById("answer").style.display = "block";
+            document.getElementById("toggleButton").textContent = "次の問題へ";  // ボタンを「次の問題へ」に変更
+            showingAnswer = true;  // 正解を表示中のフラグを設定
+        }
+
+        // ページ読み込み時に最初の問題を設定
+        window.onload = initializeQuiz;
+    </script>
+
+</body>
+</html>
